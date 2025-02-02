@@ -8,7 +8,6 @@ Globals:
       AllowMethods: "'GET,POST,OPTIONS'"
       AllowHeaders: "'content-type'"
       AllowOrigin: "'*'"
-      # AllowCredentials: true
 
 Parameters:
   OpenApiKey:
@@ -24,7 +23,6 @@ Resources:
       ContentUri: layers/chromium
       CompatibleRuntimes:
         - &nodejsRuntime nodejs18.x
-      # Chromium doesn't currently have ARM support; see https://github.com/Sparticuz/chromium#can-i-use-arm-or-graviton-instances
       CompatibleArchitectures:
         - &chromiumArch x86_64
       RetentionPolicy: Delete

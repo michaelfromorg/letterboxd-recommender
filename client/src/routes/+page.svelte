@@ -50,7 +50,7 @@
 	if (import.meta.env.MODE === 'development') {
 		apiBaseUrl = 'http://localhost:3000';
 	} else {
-		apiBaseUrl = 'https://v2ibpvirn2.execute-api.us-west-2.amazonaws.com/Prod';
+		apiBaseUrl = 'https://coeziqkzva.execute-api.us-west-2.amazonaws.com/Prod';
 	}
 
 	async function getRecommendations(): Promise<void> {
