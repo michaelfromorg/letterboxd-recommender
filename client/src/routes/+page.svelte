@@ -246,7 +246,7 @@
 	}
 
 	.inline-input {
-		@apply px-2 py-1 text-white bg-transparent border-b-2 border-gray-700 focus:outline-none transition duration-300 ease-in-out;
+		@apply px-2 py-1 text-white bg-transparent border-b-2 border-gray-700 "focus:outline-none" transition duration-300 ease-in-out;
 		min-width: 150px;
 	}
 
@@ -274,7 +274,7 @@
 	}
 
 	.btn-primary {
-		@apply px-4 sm:px-6 py-2 sm:py-3 rounded-md font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-[#14181c] transition duration-300 ease-in-out;
+		@apply px-4 "sm:px-6" py-2 "sm:py-3" rounded-md font-semibold "focus:outline-none" "focus:ring-2" "focus:ring-offset-2" "focus:ring-offset-[#14181c]" transition duration-300 ease-in-out;
 		background-color: var(--accent-color);
 		color: #1c2228;
 	}
@@ -284,11 +284,11 @@
 	}
 
 	.btn-secondary {
-		@apply bg-gray-700 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-md font-semibold hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-[#14181c] transition duration-300 ease-in-out;
+		@apply bg-gray-700 text-white px-4 "sm:px-6" py-2 "sm:py-3" rounded-md font-semibold "hover:bg-gray-600" "focus:outline-none" "focus:ring-2" "focus:ring-offset-2" "focus:ring-offset-[#14181c]" transition duration-300 ease-in-out;
 	}
 
 	.movie-card {
-		@apply bg-[#1c2228] rounded-lg overflow-hidden shadow-lg transform hover:-translate-y-1 transition duration-300 ease-in-out;
+		@apply bg-[#1c2228] rounded-lg overflow-hidden shadow-lg transform "hover:-translate-y-1" transition duration-300 ease-in-out;
 	}
 
 	.movie-card:hover {
@@ -298,7 +298,7 @@
 	}
 
 	.loader {
-		@apply border-4 border-gray-700 rounded-full w-10 h-10 sm:w-12 sm:h-12 animate-spin;
+		@apply border-4 border-gray-700 rounded-full w-10 h-10 "sm:w-12" "sm:h-12" animate-spin;
 		border-top-color: var(--accent-color);
 	}
 
