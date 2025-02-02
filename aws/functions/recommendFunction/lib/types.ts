@@ -17,10 +17,10 @@ export interface Film {
 }
 
 export interface RecommendedFilm {
-	name: string;
-	year: string;
-	tmdbPosterUrl?: string;
+  name: string;
+  year: string;
+  tmdbPosterUrl?: string;
   slug?: string;
 
-	reason: string;
+  reason: string;
 }

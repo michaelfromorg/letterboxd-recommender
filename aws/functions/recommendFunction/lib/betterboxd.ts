@@ -11,18 +11,18 @@ import {
 
 export async function fetchLetterboxdFilms(
   username: string,
-  maxPages: number = 5,
+  maxPages: number = 5
 ): Promise<{ films: Film[]; totalPages: number; fetchedPages: number }> {
   return await fetchLetterboxdData(
     username,
     fetchLetterboxdFilmsByPage,
-    maxPages,
+    maxPages
   );
 }
 
 export async function fetchLetterboxdFilmsByPage(
   username: string,
-  page: number = 1,
+  page: number = 1
 ): Promise<{ films: Film[]; totalPages: number }> {
   const url = `https://letterboxd.com/${username}/films/page/${page}/`;
 
@@ -61,18 +61,18 @@ export async function fetchLetterboxdFilmsByPage(
 
 export async function fetchLetterboxdDiary(
   username: string,
-  maxPages: number = 3,
+  maxPages: number = 3
 ): Promise<{ films: Film[]; totalPages: number; fetchedPages: number }> {
   return await fetchLetterboxdData(
     username,
     fetchLetterboxdDiaryEntriesByPage,
-    maxPages,
+    maxPages
   );
 }
 
 export async function fetchLetterboxdDiaryEntriesByPage(
   username: string,
-  page: number = 1,
+  page: number = 1
 ): Promise<{ films: Film[]; totalPages: number }> {
   const url = `https://letterboxd.com/${username}/films/diary/page/${page}/`;
 
@@ -144,18 +144,18 @@ export async function fetchLetterboxdDiaryEntriesByPage(
 
 export async function fetchLetterboxdReviews(
   username: string,
-  maxPages: number = 6,
+  maxPages: number = 6
 ): Promise<{ films: Film[]; totalPages: number; fetchedPages: number }> {
   return await fetchLetterboxdData(
     username,
     fetchLetterboxdReviewsByPage,
-    maxPages,
+    maxPages
   );
 }
 
 export async function fetchLetterboxdReviewsByPage(
   username: string,
-  page: number = 1,
+  page: number = 1
 ): Promise<{ films: Film[]; totalPages: number }> {
   const url = `https://letterboxd.com/${username}/films/reviews/page/${page}/`;
 
@@ -204,7 +204,7 @@ export async function fetchLetterboxdReviewsByPage(
         } else {
           const dateTextWithoutAction = dateText.replace(
             /^(Added|Watched|Rewatched)\s*/,
-            "",
+            ""
           );
           datetime = parseDateString(dateTextWithoutAction.trim());
         }
@@ -242,16 +242,16 @@ export async function fetchLetterboxdReviewsByPage(
 
 /**
  * Private helper function to get paginated Letterboxd data.
- * 
+ *
  * TODO(michaelfromyeg): implement caching around this function based on pageFetcher.name, username
  */
 async function fetchLetterboxdData(
   username: string,
   pageFetcher: (
     username: string,
-    page: number,
+    page: number
   ) => Promise<{ films: Film[]; totalPages: number }>,
-  maxPages: number,
+  maxPages: number
 ): Promise<{ films: Film[]; totalPages: number; fetchedPages: number }> {
   const { films: firstFilms, totalPages } = await pageFetcher(username, 1);
 
@@ -265,8 +265,8 @@ async function fetchLetterboxdData(
   const fetchedPages = await Promise.all(pagePromises);
 
   const films = [
-    ...firstFilms, 
-    ...fetchedPages.flatMap(({ films: fetchedFilms }) => fetchedFilms)
+    ...firstFilms,
+    ...fetchedPages.flatMap(({ films: fetchedFilms }) => fetchedFilms),
   ];
   return { films, totalPages, fetchedPages: pagesToFetch };
 }
@@ -277,7 +277,7 @@ async function fetchLetterboxdData(
 async function fetchLetterboxdPageData(
   url: string,
   parseFilms: ($: cheerio.CheerioAPI) => Film[],
-  contentSelector?: string,
+  contentSelector?: string
 ): Promise<{ films: Film[]; totalPages: number }> {
   console.log("Fetching Letterboxd page:", url);
 
@@ -298,7 +298,7 @@ async function fetchLetterboxdPageData(
 
 export async function addTmdbPosterUrls(
   films: Array<Pick<Film, "name" | "year" | "tmdbPosterUrl">>,
-  apiKey?: string,
+  apiKey?: string
 ): Promise<void> {
   const TMDB_API_KEY = process.env.TmdbApiKey || apiKey;
 
@@ -314,13 +314,13 @@ export async function addTmdbPosterUrls(
     films.map(async (film) => {
       try {
         const searchUrl = `${TMDB_API_BASE_URL}/search/movie?api_key=${TMDB_API_KEY}&query=${encodeURIComponent(
-          film.name,
+          film.name
         )}&year=${encodeURIComponent(film.year)}`;
         const response = await fetch(searchUrl);
 
         if (!response.ok) {
           console.error(
-            `Failed to fetch TMDB data for film: ${film.name} (status ${response.status})`,
+            `Failed to fetch TMDB data for film: ${film.name} (status ${response.status})`
           );
           return;
         }
@@ -331,7 +331,7 @@ export async function addTmdbPosterUrls(
             (m: any) =>
               m.title.toLowerCase() === film.name.toLowerCase() &&
               m.release_date &&
-              m.release_date.startsWith(film.year),
+              m.release_date.startsWith(film.year)
           );
 
           const movie = exactMatch || data.results[0];
@@ -348,12 +348,12 @@ export async function addTmdbPosterUrls(
       } catch (error) {
         console.error(`Error fetching TMDB data for film: ${film.name}`, error);
       }
-    }),
+    })
   );
 }
 
 export async function addLetterboxdSlug(
-  films: Array<Pick<Film, "name" | "year" | "slug">>,
+  films: Array<Pick<Film, "name" | "year" | "slug">>
 ): Promise<void> {
   await Promise.all(
     films.map(async (film) => {
@@ -378,7 +378,9 @@ export async function addLetterboxdSlug(
             continue;
           } else {
             // Other HTTP error
-            console.error(`Error fetching URL ${url}: ${response.status} ${response.statusText}`);
+            console.error(
+              `Error fetching URL ${url}: ${response.status} ${response.statusText}`
+            );
           }
         } catch (error) {
           console.error(`Error fetching URL ${url}:`, error);
@@ -386,15 +388,17 @@ export async function addLetterboxdSlug(
       }
 
       if (!film.slug) {
-        console.warn(`Could not find slug for film: ${film.name} (${film.year})`);
+        console.warn(
+          `Could not find slug for film: ${film.name} (${film.year})`
+        );
       }
-    }),
+    })
   );
 }
 
 function generatePossibleSlugs(name: string, year: string): string[] {
   const baseSlug = slugify(name);
-  const yearSlug = year ? `${baseSlug}-${year}` : '';
+  const yearSlug = year ? `${baseSlug}-${year}` : "";
 
   const possibleSlugs: string[] = [];
   if (yearSlug) {
@@ -409,7 +413,7 @@ function generatePossibleSlugs(name: string, year: string): string[] {
 function slugify(text: string): string {
   return text
     .toLowerCase()
-    .replace(/['’]/g, '')
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-+|-+$/g, '');
+    .replace(/['’]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
 }

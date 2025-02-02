@@ -4,10 +4,10 @@ brew install jq
 brew install awscli
 brew install aws-sam-cli
 
-pushd client
+pushd client || exit
 npm install
-popd
+popd || exit
 
-pushd server
+pushd aws/functions/recommendFunction || exit
 npm install
-popd
+popd || exit

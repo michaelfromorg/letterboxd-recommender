@@ -1,28 +1,35 @@
-import chromium from '@sparticuz/chromium';
-import puppeteer from 'puppeteer-core';
+import chromium from "@sparticuz/chromium";
+import puppeteer from "puppeteer-core";
 
 const settings = {
-  args: [...chromium.args, '--disable-web-security', '--disable-gpu', '--no-sandbox'],
+  args: [
+    ...chromium.args,
+    "--disable-web-security",
+    "--disable-gpu",
+    "--no-sandbox",
+  ],
   defaultViewport: chromium.defaultViewport,
   executablePath: await chromium.executablePath(),
   headless: chromium.headless,
-}
+};
 
 const browser = await puppeteer.launch(settings);
 
 export async function getHtmlContent(
   url: string,
-  target?: string,
+  target?: string
 ): Promise<string> {
   const page = await browser.newPage();
-  
-  await page.setUserAgent('Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36');
+
+  await page.setUserAgent(
+    "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36"
+  );
   await page.setViewport({ width: 800, height: 600 });
 
   await page.setRequestInterception(true);
-  page.on('request', (req) => {
+  page.on("request", (req) => {
     const resourceType = req.resourceType();
-    if (['image', 'media', 'font', 'stylesheet'].includes(resourceType)) {
+    if (["image", "media", "font", "stylesheet"].includes(resourceType)) {
       req.abort();
     } else {
       req.continue();
@@ -74,7 +81,6 @@ async function autoScroll(page: any): Promise<void> {
     });
   });
 }
-
 
 export function convertRatingToNumber(rating: string): number {
   const fullStars = (rating.match(/★/g) || []).length;
