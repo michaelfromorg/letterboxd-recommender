@@ -19,13 +19,7 @@ Helpful links and pointers for the AWS resources this project is using.
     sam local invoke --event event.json --env-vars env.json
     ```
 
-5. For usage with the front-end, run:
-
-    ```sh
-    sam local start-lambda
-    ```
-
-These commands are made more accessible via the provided `Makefile`.
+These commands (and more!) are made more accessible via the provided `Makefile`.
 
 ## Notes
 
