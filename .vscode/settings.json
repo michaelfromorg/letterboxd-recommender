@@ -1,6 +1,7 @@
 {
   "files.associations": {
-    "CNAME": "plaintext"
+    "CNAME": "plaintext",
+    ".nojekyll": "plaintext"
   },
   "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {
