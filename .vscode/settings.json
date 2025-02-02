@@ -1,4 +1,7 @@
 {
+  "files.associations": {
+    "CNAME": "plaintext"
+  },
   "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {
     "source.fixAll": "explicit",
